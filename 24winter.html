@@ -6,7 +6,11 @@
     <title>Event Page</title>
     
     <!-- Swiper CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    <!-- jQuery (for imageMapResize) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-rwdImageMaps/1.6/jquery.rwdImageMaps.min.js"></script>
     
     <style>
         * {
@@ -86,6 +90,22 @@
             animation-name: fadeInside1;
         }
 
+        .effect {
+            position: relative;
+            animation: fade-in-left 1.2s cubic-bezier(0.390, 0.575, 0.565, 1.000) both;
+        }
+
+        @keyframes fade-in-left {
+            0% {
+                transform: translateX(50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
         @keyframes noise {
             0%, 100% { background-position: 0 0; }
             50% { background-position: 100% 100%; }
@@ -94,22 +114,33 @@
         .noise-background {
             width: 100%;
             height: 100%;
-            background: url('http://img.bstyle.kr/event/noise1.png');
             position: absolute;
             top: 0;
             left: 0;
             z-index: 3;
             pointer-events: none;
-            opacity: 0.07;
             animation: noise 0.3s infinite;
+        }
+
+        /* Desktop noise */
+        .noise-background.desktop {
+            background: url('http://img.bstyle.kr/event/noise1.png');
+            opacity: 0.07;
+        }
+
+        /* Mobile noise */
+        .noise-background.mobile {
+            background: url('http://img.bstyle.kr/event/noise.png');
+            opacity: 0.08;
+            animation: noise 0.2s infinite;
         }
 
         .event-with-noise {
             position: relative;
         }
         
-        /* Swiper 컨테이너 기본 스타일 */
-        .swiper-container {
+        /* Swiper */
+        .swiper {
             width: 100%;
             height: auto;
         }
@@ -128,157 +159,334 @@
             width: 100%;
             height: auto;
         }
+
+        /* Desktop content - default visible */
+        .desktop-content {
+            display: block;
+        }
+
+        /* Mobile content - hidden by default */
+        .mobile-content {
+            display: none;
+        }
+
+        /* Mobile Media Query - 768px 이하 */
+        @media (max-width: 768px) {
+            .desktop-content {
+                display: none;
+            }
+            
+            .mobile-content {
+                display: block;
+            }
+
+            :root {
+                --animate-duration: 1.2s;
+            }
+        }
     </style>
 </head>
 <body>
 
-<div class="event event-with-noise" align="center">
-    <div class="animate__animated animate__fadeInUp" style="animation-delay: 0s; position:absolute; right:0px; left:0px; top:0px; z-index:7; text-align:center;">
-        <img src="http://img.bstyle.kr/event/241024_on_t.png">
+<!-- ========== DESKTOP VERSION ========== -->
+<div class="desktop-content">
+    <div class="event event-with-noise" align="center">
+        <div class="animate__animated animate__fadeInUp" style="animation-delay: 0s; position:absolute; right:0px; left:0px; top:0px; z-index:7; text-align:center;">
+            <img src="http://img.bstyle.kr/event/241024_on_t.png">
+        </div>
+        <div style="position:absolute; right:0px; left:0px; top:0px; z-index:6; text-align:center;">
+            <img src="http://img.bstyle.kr/event/241024_on_img1.png">
+        </div>
+        <div class="animate__animated animate__fadeInside" style="animation-delay: 0.6s; position:absolute; right:0px; left:0px; top:0px; z-index:5; text-align:center;">
+            <img src="http://img.bstyle.kr/event/241024_on_t1.png">
+        </div>
+        <div class="animate__animated animate__fadeInside1" style="animation-delay: 0.6s; position:absolute; right:0px; left:0px; top:0px; z-index:5; text-align:center;">
+            <img src="http://img.bstyle.kr/event/241024_on_t2.png">
+        </div>
+        <div><img src="http://img.bstyle.kr/event/241024_on_011.jpg"></div>
+        <div class="noise-background desktop"></div>
     </div>
-    <div style="position:absolute; right:0px; left:0px; top:0px; z-index:6; text-align:center;">
-        <img src="http://img.bstyle.kr/event/241024_on_img1.png">
+
+    <div class="event" align="center">
+        <div><img src="https://beaucre.cafe24.com/event/241024_on_02.jpg"></div>
+        <div><img src="https://beaucre.cafe24.com/event/241024_on_08.jpg"></div>
     </div>
-    <div class="animate__animated animate__fadeInside" style="animation-delay: 0.6s; position:absolute; right:0px; left:0px; top:0px; z-index:5; text-align:center;">
-        <img src="http://img.bstyle.kr/event/241024_on_t1.png">
+
+    <div class="event event-with-noise" align="center">
+        <div class="swiper intro-desktop">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="http://img.bstyle.kr/event/241024_on_03_01.jpg"></div>
+                <div class="swiper-slide"><img src="http://img.bstyle.kr/event/241024_on_03_02.jpg"></div>
+            </div>
+        </div>
+        <div class="noise-background desktop"></div>
     </div>
-    <div class="animate__animated animate__fadeInside1" style="animation-delay: 0.6s; position:absolute; right:0px; left:0px; top:0px; z-index:5; text-align:center;">
-        <img src="http://img.bstyle.kr/event/241024_on_t2.png">
+
+    <div class="event" align="center">
+        <div class="swiper event1-desktop">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="http://img.bstyle.kr/event/241024_on_04_01.jpg" usemap="#Map1" border="0">
+                    <map name="Map1" id="Map1">
+                        <area shape="rect" coords="269,880,524,1066" href="/product/detail.html?product_no=19461" alt="01" />
+                    </map>
+                </div>
+                <div class="swiper-slide">
+                    <img src="http://img.bstyle.kr/event/241024_on_04_02.jpg" usemap="#Map2" border="0">
+                    <map name="Map2" id="Map2">
+                        <area shape="rect" coords="269,740,584,912" href="/product/detail.html?product_no=19447" alt="01" />
+                        <area shape="rect" coords="269,922,589,1066" href="/product/detail.html?product_no=19207" alt="02" />
+                        <area shape="rect" coords="1350,223,1632,416" href="/product/detail.html?product_no=19402" alt="03" />
+                    </map>
+                </div>
+            </div>
+        </div>
     </div>
-    <div><img src="http://img.bstyle.kr/event/241024_on_011.jpg"></div>
-    <div class="noise-background"></div>
+
+    <div class="event" align="center">
+        <div class="swiper event2-desktop">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="http://img.bstyle.kr/event/241024_on_05_01.jpg" usemap="#Map3" border="0">
+                    <map name="Map3" id="Map3">
+                        <area shape="rect" coords="1397,830,1798,928" href="/product/detail.html?product_no=19481" alt="01" />
+                        <area shape="rect" coords="1397,933,1798,1015" href="/product/detail.html?product_no=19400" alt="02" />
+                        <area shape="rect" coords="1397,1018,1798,1114" href="/product/detail.html?product_no=19197" alt="03" />
+                        <area shape="rect" coords="87,1281,483,1387" href="/product/detail.html?product_no=19474" alt="04" />
+                        <area shape="rect" coords="86,1392,482,1476" href="/product/detail.html?product_no=19392" alt="05" />
+                    </map>
+                </div>
+                <div class="swiper-slide">
+                    <img src="http://img.bstyle.kr/event/241024_on_05_02.jpg" usemap="#Map4" border="0">
+                    <map name="Map4" id="Map4">
+                        <area shape="rect" coords="1397,830,1798,928" href="/product/detail.html?product_no=19472" alt="01" />
+                        <area shape="rect" coords="1397,933,1798,1015" href="/product/detail.html?product_no=19471" alt="02" />
+                        <area shape="rect" coords="1397,1018,1798,1114" href="/product/detail.html?product_no=19199" alt="03" />
+                        <area shape="rect" coords="87,1281,483,1387" href="/product/detail.html?product_no=19454" alt="04" />
+                        <area shape="rect" coords="86,1392,482,1476" href="/product/detail.html?product_no=19372" alt="05" />
+                        <area shape="rect" coords="86,1481,482,1600" href="/product/detail.html?product_no=19194" alt="06" />
+                    </map>
+                </div>
+                <div class="swiper-slide">
+                    <img src="http://img.bstyle.kr/event/241024_on_05_03.jpg" usemap="#Map5" border="0">
+                    <map name="Map5" id="Map5">
+                        <area shape="rect" coords="1397,830,1798,928" href="/product/detail.html?product_no=19472" alt="01" />
+                        <area shape="rect" coords="1397,933,1798,1015" href="/product/detail.html?product_no=19471" alt="02" />
+                        <area shape="rect" coords="1397,1018,1798,1114" href="/product/detail.html?product_no=19199" alt="03" />
+                        <area shape="rect" coords="87,1281,483,1387" href="/product/detail.html?product_no=19477" alt="04" />
+                        <area shape="rect" coords="86,1392,482,1476" href="/product/detail.html?product_no=19394" alt="05" />
+                    </map>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="event" align="center">
+        <div>
+            <img src="http://img.bstyle.kr/event/241024_on_06.jpg" usemap="#Map6" border="0">
+            <map name="Map6" id="Map6">
+                <area shape="rect" coords="1249,481,1632,565" href="/product/detail.html?product_no=19467" alt="01" />
+                <area shape="rect" coords="1251,571,1632,652" href="/product/detail.html?product_no=19198" alt="02" />
+                <area shape="rect" coords="1249,655,1632,743" href="/product/detail.html?product_no=19196" alt="03" />
+            </map>
+        </div>
+    </div>
 </div>
 
-<div class="event" align="center">
-    <div><img src="https://beaucre.cafe24.com/event/241024_on_02.jpg"></div>
-    <div><img src="https://beaucre.cafe24.com/event/241024_on_08.jpg"></div>
-</div>
-
-<div class="event event-with-noise" align="center">
-    <div class="swiper intro" style="margin:0 auto; text-align:center; overflow:hidden !important;">
-        <ul class="swiper-wrapper">
-            <li class="swiper-slide"><img src="http://img.bstyle.kr/event/241024_on_03_01.jpg"></li>
-            <li class="swiper-slide"><img src="http://img.bstyle.kr/event/241024_on_03_02.jpg"></li>
-        </ul>
-        <div class="noise-background"></div>
+<!-- ========== MOBILE VERSION ========== -->
+<div class="mobile-content">
+    <div class="event event-with-noise">
+        <div class="animate__animated animate__fadeInUp" style="animation-delay: 1.8s; position:absolute; right:0px; left:0px; top:0px; z-index:6; text-align:center;">
+            <img src="http://img.bstyle.kr/event/241024_on_m_img.png" width="100%">
+        </div>
+        <div class="animate__animated animate__fadeInUp" style="animation-delay: 1s; position:absolute; right:0px; left:0px; top:0px; z-index:5; text-align:center;">
+            <img src="http://img.bstyle.kr/event/241024_on_m_img2.png" width="100%">
+        </div>
+        <div class="animate__animated animate__fadeInUp" style="animation-delay: 0.4s; position:absolute; right:0px; left:0px; top:0px; z-index:4; text-align:center;">
+            <img src="http://img.bstyle.kr/event/241024_on_m_img3.png" width="100%">
+        </div>
+        <div class="effect" style="animation-delay: 0.4s; position:absolute; right:0px; left:0px; top:0px; z-index:7; text-align:center;">
+            <img src="http://img.bstyle.kr/event/241024_on_m_t.png" width="100%">
+        </div>
+        <div class="noise-background mobile"></div>
+        <div><img src="http://img.bstyle.kr/event/241024_on_m_01.jpg" width="100%"></div>
     </div>
-</div>
 
-<!-- 상품 -->
-<div class="event" align="center">
-    <div class="swiper event1" style="margin:0 auto; text-align:center; overflow:hidden !important;">
-        <ul class="swiper-wrapper">
-            <li class="swiper-slide">
-                <img src="http://img.bstyle.kr/event/241024_on_04_01.jpg" usemap="#Map1" border="0">
-                <map name="Map1" id="Map1">
-                    <area shape="rect" coords="269,880,524,1066" href="/product/detail.html?product_no=19461" alt="01" />
-                </map>
-            </li>
-            <li class="swiper-slide">
-                <img src="http://img.bstyle.kr/event/241024_on_04_02.jpg" usemap="#Map2" border="0">
-                <map name="Map2" id="Map2">
-                    <area shape="rect" coords="269,740,584,912" href="/product/detail.html?product_no=19447" alt="01" />
-                    <area shape="rect" coords="269,922,589,1066" href="/product/detail.html?product_no=19207" alt="02" />
-                    <area shape="rect" coords="1350,223,1632,416" href="/product/detail.html?product_no=19402" alt="03" />
-                </map>
-            </li>
-        </ul>
+    <div><img src="https://img.bstyle.kr/event/241024_on_m_02.jpg" width="100%"></div>
+
+    <div class="event event-with-noise">
+        <div style="position:absolute; right:0px; left:0px; top:0px; z-index:7; text-align:center;">
+            <img src="http://img.bstyle.kr/event/241024_on_m_img1.png" width="100%">
+        </div>
+        <div style="position:absolute; right:0px; left:0px; top:0px; z-index:6; text-align:center;">
+            <img src="http://img.bstyle.kr/event/241024_on_m_03_t.png" width="100%">
+        </div>
+        <div style="position:absolute; right:0px; left:0px; top:0px; z-index:5; text-align:center;">
+            <img src="http://img.bstyle.kr/event/241024_on_m_dark.png" width="100%">
+        </div>
+        <img src="http://img.bstyle.kr/event/241024_on_m_033.jpg" width="100%">
+        <div class="noise-background mobile"></div>
     </div>
-</div>
 
-<!-- 상품2 -->
-<div class="event" align="center">
-    <div class="swiper event2" style="margin:0 auto; text-align:center; overflow:hidden !important;">
-        <ul class="swiper-wrapper">
-            <li class="swiper-slide">
-                <img src="http://img.bstyle.kr/event/241024_on_05_01.jpg" usemap="#Map3" border="0">
-                <map name="Map3" id="Map3">
-                    <area shape="rect" coords="1397,830,1798,928" href="/product/detail.html?product_no=19481" alt="01" />
-                    <area shape="rect" coords="1397,933,1798,1015" href="/product/detail.html?product_no=19400" alt="02" />
-                    <area shape="rect" coords="1397,1018,1798,1114" href="/product/detail.html?product_no=19197" alt="03" />
-                    <area shape="rect" coords="87,1281,483,1387" href="/product/detail.html?product_no=19474" alt="04" />
-                    <area shape="rect" coords="86,1392,482,1476" href="/product/detail.html?product_no=19392" alt="05" />
+    <div class="swiper event1-mobile">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="http://img.bstyle.kr/event/241024_on_m_04_01.jpg" width="100%" usemap="#MapM1" border="0">
+                <map name="MapM1" id="MapM1">
+                    <area shape="rect" coords="122,909,788,1066" href="/product/detail.html?product_no=19447" alt="01" />
+                    <area shape="rect" coords="122,1070,787,1198" href="/product/detail.html?product_no=19207" alt="02" />
+                    <area shape="rect" coords="787,1362,122,1201" href="/product/detail.html?product_no=19402" alt="03" />
+                    <area shape="rect" coords="139,1474,899,2484" href="/product/detail.html?product_no=19461" alt="04" />
                 </map>
-            </li>
-            <li class="swiper-slide">
-                <img src="http://img.bstyle.kr/event/241024_on_05_02.jpg" usemap="#Map4" border="0">
-                <map name="Map4" id="Map4">
-                    <area shape="rect" coords="1397,830,1798,928" href="/product/detail.html?product_no=19472" alt="01" />
-                    <area shape="rect" coords="1397,933,1798,1015" href="/product/detail.html?product_no=19471" alt="02" />
-                    <area shape="rect" coords="1397,1018,1798,1114" href="/product/detail.html?product_no=19199" alt="03" />
-                    <area shape="rect" coords="87,1281,483,1387" href="/product/detail.html?product_no=19454" alt="04" />
-                    <area shape="rect" coords="86,1392,482,1476" href="/product/detail.html?product_no=19372" alt="05" />
-                    <area shape="rect" coords="86,1481,482,1600" href="/product/detail.html?product_no=19194" alt="06" />
+            </div>
+            <div class="swiper-slide">
+                <img src="http://img.bstyle.kr/event/241024_on_m_04_02.jpg" width="100%" usemap="#MapM2" border="0">
+                <map name="MapM2" id="MapM2">
+                    <area shape="rect" coords="122,909,788,1066" href="/product/detail.html?product_no=19474" alt="01" />
+                    <area shape="rect" coords="122,1070,787,1198" href="/product/detail.html?product_no=19392" alt="02" />
+                    <area shape="rect" coords="139,1474,899,2484" href="/product/detail.html?product_no=19472" alt="03" />
                 </map>
-            </li>
-            <li class="swiper-slide">
-                <img src="http://img.bstyle.kr/event/241024_on_05_03.jpg" usemap="#Map5" border="0">
-                <map name="Map5" id="Map5">
-                    <area shape="rect" coords="1397,830,1798,928" href="/product/detail.html?product_no=19472" alt="01" />
-                    <area shape="rect" coords="1397,933,1798,1015" href="/product/detail.html?product_no=19471" alt="02" />
-                    <area shape="rect" coords="1397,1018,1798,1114" href="/product/detail.html?product_no=19199" alt="03" />
-                    <area shape="rect" coords="87,1281,483,1387" href="/product/detail.html?product_no=19477" alt="04" />
-                    <area shape="rect" coords="86,1392,482,1476" href="/product/detail.html?product_no=19394" alt="05" />
+            </div>
+            <div class="swiper-slide">
+                <img src="http://img.bstyle.kr/event/241024_on_m_04_03.jpg" width="100%" usemap="#MapM3" border="0">
+                <map name="MapM3" id="MapM3">
+                    <area shape="rect" coords="122,909,788,1066" href="/product/detail.html?product_no=19481" alt="01" />
+                    <area shape="rect" coords="122,1070,787,1198" href="/product/detail.html?product_no=19400" alt="02" />
+                    <area shape="rect" coords="787,1362,122,1201" href="/product/detail.html?product_no=19197" alt="03" />
+                    <area shape="rect" coords="139,1474,899,2484" href="/product/detail.html?product_no=19481" alt="04" />
                 </map>
-            </li>
-        </ul>
+            </div>
+            <div class="swiper-slide">
+                <img src="http://img.bstyle.kr/event/241024_on_m_04_04.jpg" width="100%" usemap="#MapM4" border="0">
+                <map name="MapM4" id="MapM4">
+                    <area shape="rect" coords="122,909,788,1066" href="/product/detail.html?product_no=19472" alt="01" />
+                    <area shape="rect" coords="122,1070,787,1198" href="/product/detail.html?product_no=19471" alt="02" />
+                    <area shape="rect" coords="787,1362,122,1201" href="/product/detail.html?product_no=19199" alt="03" />
+                    <area shape="rect" coords="139,1474,899,2484" href="/product/detail.html?product_no=19472" alt="03" />
+                </map>
+            </div>
+        </div>
     </div>
-</div>
 
-<!-- 상품3 -->
-<div class="event" align="center">
-    <div>
-        <img src="http://img.bstyle.kr/event/241024_on_06.jpg" usemap="#Map6" border="0">
-        <map name="Map6" id="Map6">
-            <area shape="rect" coords="1249,481,1632,565" href="/product/detail.html?product_no=19467" alt="01" />
-            <area shape="rect" coords="1251,571,1632,652" href="/product/detail.html?product_no=19198" alt="02" />
-            <area shape="rect" coords="1249,655,1632,743" href="/product/detail.html?product_no=19196" alt="03" />
-        </map>
+    <div class="swiper event2-mobile">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="http://img.bstyle.kr/event/241024_on_m_05_01.jpg" width="100%" usemap="#MapM5" border="0">
+                <map name="MapM5" id="MapM5">
+                    <area shape="rect" coords="115,790,803,954" href="/product/detail.html?product_no=19467" alt="01" />
+                    <area shape="rect" coords="115,962,803,1093" href="/product/detail.html?product_no=19198" alt="02" />
+                    <area shape="rect" coords="115,1099,803,1249" href="/product/detail.html?product_no=19196" alt="03" />
+                </map>
+            </div>
+            <div class="swiper-slide">
+                <img src="http://img.bstyle.kr/event/241024_on_m_05_02.jpg" width="100%" usemap="#MapM6" border="0">
+                <map name="MapM6" id="MapM6">
+                    <area shape="rect" coords="115,790,803,954" href="/product/detail.html?product_no=19477" alt="01" />
+                    <area shape="rect" coords="115,962,803,1093" href="/product/detail.html?product_no=19394" alt="02" />
+                </map>
+            </div>
+            <div class="swiper-slide">
+                <img src="http://img.bstyle.kr/event/241024_on_m_05_03.jpg" width="100%" usemap="#MapM7" border="0">
+                <map name="MapM7" id="MapM7">
+                    <area shape="rect" coords="115,790,803,954" href="/product/detail.html?product_no=19454" alt="01" />
+                    <area shape="rect" coords="115,962,803,1093" href="/product/detail.html?product_no=19372" alt="02" />
+                    <area shape="rect" coords="115,1099,803,1249" href="/product/detail.html?product_no=19194" alt="03" />
+                </map>
+            </div>
+            <div class="swiper-slide">
+                <img src="http://img.bstyle.kr/event/241024_on_m_05_04.jpg" width="100%" usemap="#MapM8" border="0">
+                <map name="MapM8" id="MapM8">
+                    <area shape="rect" coords="115,790,803,954" href="/product/detail.html?product_no=19477" alt="01" />
+                    <area shape="rect" coords="115,962,803,1093" href="/product/detail.html?product_no=19394" alt="02" />
+                </map>
+            </div>
+        </div>
     </div>
 </div>
 
 <!-- Swiper JS -->
-<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <!-- Initialize Swiper -->
 <script>
-    // Intro Swiper
-    var swiperIntro = new Swiper('.intro', {
-        slidesPerView: 1,
-        spaceBetween: 0,
-        effect: "fade",
-        loop: true,
-        speed: 1000,
-        autoplay: {
-            delay: 800,
-            disableOnInteraction: false,
-        },
-    });
+    // 모든 리소스가 로드된 후 실행
+    window.addEventListener('load', function() {
+        console.log('Swiper initializing...');
+        
+        // Desktop Swipers
+        if (window.innerWidth > 768) {
+            var swiperIntroDesktop = new Swiper('.intro-desktop', {
+                slidesPerView: 1,
+                spaceBetween: 0,
+                effect: "fade",
+                loop: true,
+                speed: 1000,
+                autoplay: {
+                    delay: 800,
+                    disableOnInteraction: false,
+                },
+            });
 
-    // Event1 Swiper
-    var swiperEvent1 = new Swiper('.event1', {
-        slidesPerView: 1,
-        spaceBetween: 0,
-        effect: "fade",
-        loop: true,
-        speed: 1000,
-        autoplay: {
-            delay: 1000,
-            disableOnInteraction: false,
-        },
-    });
+            var swiperEvent1Desktop = new Swiper('.event1-desktop', {
+                slidesPerView: 1,
+                spaceBetween: 0,
+                effect: "fade",
+                loop: true,
+                speed: 1000,
+                autoplay: {
+                    delay: 1000,
+                    disableOnInteraction: false,
+                },
+            });
 
-    // Event2 Swiper
-    var swiperEvent2 = new Swiper('.event2', {
-        slidesPerView: 1,
-        spaceBetween: 0,
-        effect: "fade",
-        loop: true,
-        speed: 1000,
-        autoplay: {
-            delay: 1000,
-            disableOnInteraction: false,
-        },
+            var swiperEvent2Desktop = new Swiper('.event2-desktop', {
+                slidesPerView: 1,
+                spaceBetween: 0,
+                effect: "fade",
+                loop: true,
+                speed: 1000,
+                autoplay: {
+                    delay: 1000,
+                    disableOnInteraction: false,
+                },
+            });
+            
+            console.log('Desktop Swipers initialized');
+        }
+
+        // Mobile Swipers
+        if (window.innerWidth <= 768) {
+            var swiperEvent1Mobile = new Swiper('.event1-mobile', {
+                slidesPerView: 1,
+                spaceBetween: 0,
+                effect: "fade",
+                loop: true,
+                speed: 1000,
+                autoplay: {
+                    delay: 1200,
+                    disableOnInteraction: false,
+                },
+            });
+
+            var swiperEvent2Mobile = new Swiper('.event2-mobile', {
+                slidesPerView: 1,
+                spaceBetween: 0,
+                effect: "fade",
+                loop: true,
+                speed: 1000,
+                autoplay: {
+                    delay: 1200,
+                    disableOnInteraction: false,
+                },
+            });
+            
+            console.log('Mobile Swipers initialized');
+            console.log('Event1 Mobile:', swiperEvent1Mobile);
+            console.log('Event2 Mobile:', swiperEvent2Mobile);
+        }
+
+        // Responsive Image Maps
+        $('map').imageMapResize();
     });
 </script>
 
